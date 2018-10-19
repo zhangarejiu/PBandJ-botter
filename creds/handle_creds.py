@@ -6,18 +6,19 @@ storing exchange information for use. \
 
 import time, os, sys, transpositionEncrypt, transpositionDecrypt
 
+#TODO:
+#GENERATE EXCHANGE CLASS
+#HANDLE THE CREDENTIAL FILE
 
-## class Exchange():
 
 
-def encrypt(password):
+def encrypt(password, credfile = "credentials.txt"):
 	"""Function for encrypting the credential file"""
-	filename = 'credentials.txt'
-	if not os.path.exists(filename):
-		print('The credential file %s does not exist. Quitting...' % (filename))
+	if not os.path.exists(credfile):
+		print('The credential file %s does not exist. Quitting...' % (credfile))
 		sys.exit()
 
-	fileObj = open(filename)
+	fileObj = open(credfile)
 	content = fileObj.read()
 	fileObj.close()
 
@@ -30,17 +31,17 @@ def encrypt(password):
 	outputFileObj.close()
 
 	#remove the original file
-	os.remove(filename)
+	os.remove(credfile)
 
 
-def decrypt(password, passwordfile):
+def decrypt(password, credfile = "credentials_encrypted.txt"):
 	"""Function for decrypting credential file"""
-	if not os.path.exists(passwordfile[:-4] +'_encrypted.txt'):
-		print('The credential file %s does not exist. Quitting...' % (passwordfile[:-4] +'_encrypted.txt'))
+	if not os.path.exists(credfile):
+		print('The credential file %s does not exist. Quitting...' % (credfile))
 		sys.exit()
 
 	#open file
-	fileObj = open(passwordfile[:-4] +'_encrypted.txt')
+	fileObj = open(credfile)
 	content = fileObj.read()
 	fileObj.close()
 
@@ -53,6 +54,9 @@ def decrypt(password, passwordfile):
 	outputFileObj.close()
 
 	#handle credentials and create the exchange object
+	###HANDLE FILE
 
-	#remove the original file
-	os.remove(credentials_encrypted)
+	#remove the unencrypted file
+	os.remove("credentials.txt")
+
+	return Exchanges
