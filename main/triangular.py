@@ -17,10 +17,28 @@ def check_diff(exchanges, currency):
 
 
 	#return the min and max values
-	return {"min": min(), "max": }
+	return {'min': min(), 'max': ,'difference':}
 
 
-def execute_trade(exchanges, trade, currency):
+def execute_trade(exchanges, trade, currency, threshold, amount, timeout=100):
+
+	if trade['difference'] > threshold:
+
+		#make trade and cashout
+		#will have to figure out how to be conservative with $$$ used
+		exchanges[trade['min']].send(exchanges[trade['max']], amount, currency)
+
+		#Put bound on transaction time, then cancel
+		clock = time.time()
+
+		while exchanges[trade['max']].check_transaction() != True and time.time()-clock>timeout:
+			sleep(5)
+
+		if exchanges[trade['max']].check_transaction() == True:
+			# $$$ cash out
+			exchanges[trade['max']].cashout(amount, currency)
+
+
 	"""exchanges is an object with auth creds associated"""
 	"""Trade is a dict with max, min exchange val"""
 	
