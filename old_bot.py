@@ -1,3 +1,5 @@
+"""Saddest documentation ever"""
+
 import time
 from gdax.authenticated_client import AuthenticatedClient
 from gdax import WebsocketClient
@@ -6,6 +8,9 @@ from gdax.public_client import PublicClient
 import numpy as np
 import datetime
 import csv
+
+
+
 
 
 def bid_spread(bid_intervals, bid_depths_intervals, ask_intervals, ask_depths_intervals):
